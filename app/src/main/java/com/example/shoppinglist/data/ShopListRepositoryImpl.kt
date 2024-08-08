@@ -6,18 +6,23 @@ import com.example.shoppinglist.domain.ShopItem
 import com.example.shoppinglist.domain.ShopListRepository
 
 class ShopListRepositoryImpl : ShopListRepository {
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf(object :Comparator<ShopItem>{
+        override fun compare(p0: ShopItem, p1: ShopItem): Int {
+            return p0.id.compareTo(p1.id)
+        }
+    })
     private val shopListLD = MutableLiveData<List<ShopItem>>()
     private var autoIncrementId = 0
+
     init {
-        repeat(10){
+        repeat(50) {
             val shopItem = ShopItem(name = "product $it", count = it, enabled = true)
             addShopItem(shopItem)
         }
     }
 
     override fun addShopItem(shopItem: ShopItem) {
-        if(shopItem.id == ShopItem.UNDEFINED_ID){
+        if (shopItem.id == ShopItem.UNDEFINED_ID) {
             shopItem.id = autoIncrementId++
         }
         shopList.add(shopItem)
@@ -42,7 +47,7 @@ class ShopListRepositoryImpl : ShopListRepository {
 
     override fun getShopList(): LiveData<List<ShopItem>> = shopListLD
 
-    private fun updateList(){
+    private fun updateList() {
         shopListLD.value = shopList.toList()
     }
 }
