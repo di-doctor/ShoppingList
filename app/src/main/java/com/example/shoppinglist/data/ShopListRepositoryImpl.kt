@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shoppinglist.domain.ShopItem
 import com.example.shoppinglist.domain.ShopListRepository
+import kotlin.random.Random
 
 class ShopListRepositoryImpl : ShopListRepository {
     private val shopList = sortedSetOf(object :Comparator<ShopItem>{
@@ -16,7 +17,7 @@ class ShopListRepositoryImpl : ShopListRepository {
 
     init {
         repeat(50) {
-            val shopItem = ShopItem(name = "product $it", count = it, enabled = true)
+            val shopItem = ShopItem(name = "product $it", count = it, Random.nextBoolean())
             addShopItem(shopItem)
         }
     }
