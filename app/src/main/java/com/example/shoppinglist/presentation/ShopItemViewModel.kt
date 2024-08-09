@@ -42,11 +42,10 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
-            _shopItem.value?.let {
-                val shopItem = it.copy(name = name,count = count)
+                val shopItem = ShopItem(name = name,count = count,enabled = true)
                 addShopItemUseCase.addShopItem(shopItem)
                 finishWork()
-            }
+
 
         }
     }
@@ -56,9 +55,12 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
-            val shopItem = ShopItem(name = name, count = count, enabled = true)
-            editShopItemUseCase.editShopItem(shopItem)
-            finishWork()
+            _shopItem.value?.let {
+                val shopItem = it.copy(name = name, count = count)
+                editShopItemUseCase.editShopItem(shopItem)
+                finishWork()
+            }
+
         }
     }
 
