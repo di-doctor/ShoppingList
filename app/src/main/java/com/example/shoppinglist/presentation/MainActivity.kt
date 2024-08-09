@@ -34,12 +34,12 @@ class MainActivity : AppCompatActivity() {
             ShopListAdapter.MAX_POOL_SIZE
         )
         setupLongClickListener()
-        setupclickListener()
+        setupClickListener()
         setupSwipeItemForDelete(rvShopList)
     }
 
     private fun setupSwipeItemForDelete(rvShopList: RecyclerView?) {
-        val callback = object : ItemTouchHelper.SimpleCallback(
+        val callback =object :ItemTouchHelper.SimpleCallback(
             0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
@@ -55,13 +55,12 @@ class MainActivity : AppCompatActivity() {
                 val item = adapter.shopList[viewHolder.adapterPosition]
                 viewModel.deleteShopItem(item)
             }
-
         }
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(rvShopList)
     }
 
-    private fun setupclickListener() {
+    private fun setupClickListener() {
         adapter.onShopItemClickListener = {
             Log.d("ShoppingList", "click on item, name ${it.name}  count ${it.count}")
         }
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupLongClickListener() {
         adapter.onShopItemLongClickListener = {
             viewModel.changeEnabledState(it)
-            Log.d("ShoppinfList", "click work")
+            Log.d("ShoppingList", "click work")
         }
     }
 
