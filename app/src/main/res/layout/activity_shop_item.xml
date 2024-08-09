@@ -45,7 +45,7 @@
             android:id="@+id/et_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/count"
+            android:hint="@string/count_caps"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
