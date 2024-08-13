@@ -17,6 +17,10 @@ class ShopItemViewModel : ViewModel() {
     private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
     private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
 
+    private val _shopItem = MutableLiveData<ShopItem>()
+    val shopItem: LiveData<ShopItem>
+        get() = _shopItem
+
     private val _errorInputName = MutableLiveData<Boolean>()
     val errorInputName: LiveData<Boolean>
         get() = _errorInputName
@@ -24,10 +28,6 @@ class ShopItemViewModel : ViewModel() {
     private val _errorInputCount = MutableLiveData<Boolean>()
     val errorInputCount: LiveData<Boolean>
         get() = _errorInputCount
-
-    private val _shopItem = MutableLiveData<ShopItem>()
-    val shopItem: LiveData<ShopItem>
-        get() = _shopItem
 
     private val _shouldCloseScreen = MutableLiveData<Unit>()
     val shouldCloseScreen: LiveData<Unit>
@@ -43,10 +43,10 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
-            Log.d("ShopViewModelLog","$name  $count")
-                val shopItem = ShopItem(name = name,count = count,enabled = true)
-                addShopItemUseCase.addShopItem(shopItem)
-                finishWork()
+            Log.d("ShopViewModelLog", "$name  $count")
+            val shopItem = ShopItem(name = name, count = count, enabled = true)
+            addShopItemUseCase.addShopItem(shopItem)
+            finishWork()
         }
     }
 
@@ -55,7 +55,7 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
-            Log.d("ShopViewModelLog","$name  $count")
+            Log.d("ShopViewModelLog", "$name  $count")
             _shopItem.value?.let {
                 val shopItem = it.copy(name = name, count = count)
                 editShopItemUseCase.editShopItem(shopItem)
