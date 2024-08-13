@@ -5,4 +5,6 @@
     <string name="count">count</string>
     <string name="save">Сохранить</string>
     <string name="count_caps">Count</string>
+    <string name="error_input_count">Invalid count</string>
+    <string name="error_input_name">Invalid name</string>
 </resources>

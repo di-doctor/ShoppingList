@@ -1,5 +1,6 @@
 package com.example.shoppinglist.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,7 @@ import com.example.shoppinglist.domain.GetShopItemUseCase
 import com.example.shoppinglist.domain.ShopItem
 
 class ShopItemViewModel : ViewModel() {
-    private val shopListRepository = ShopListRepositoryImpl()
+    private val shopListRepository = ShopListRepositoryImpl
 
     private val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
     private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
@@ -42,11 +43,10 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
+            Log.d("ShopViewModelLog","$name  $count")
                 val shopItem = ShopItem(name = name,count = count,enabled = true)
                 addShopItemUseCase.addShopItem(shopItem)
                 finishWork()
-
-
         }
     }
 
@@ -55,6 +55,7 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
+            Log.d("ShopViewModelLog","$name  $count")
             _shopItem.value?.let {
                 val shopItem = it.copy(name = name, count = count)
                 editShopItemUseCase.editShopItem(shopItem)

@@ -6,13 +6,13 @@ import com.example.shoppinglist.domain.ShopItem
 import com.example.shoppinglist.domain.ShopListRepository
 import kotlin.random.Random
 
-class ShopListRepositoryImpl : ShopListRepository {
+object ShopListRepositoryImpl : ShopListRepository {
     private val shopList = sortedSetOf(Comparator<ShopItem> { p0, p1 -> p0.id.compareTo(p1.id) })
     private val shopListLD = MutableLiveData<List<ShopItem>>()
     private var autoIncrementId = 0
 
     init {
-        repeat(50) {
+        repeat(20) {
             val shopItem = ShopItem(name = "product $it", count = it, Random.nextBoolean())
             addShopItem(shopItem)
         }
