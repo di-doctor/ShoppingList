@@ -55,7 +55,6 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val validateValid = validateInput(name, count)
         if (validateValid) {
-            Log.d("ShopViewModelLog", "$name  $count")
             _shopItem.value?.let {
                 val shopItem = it.copy(name = name, count = count)
                 editShopItemUseCase.editShopItem(shopItem)
